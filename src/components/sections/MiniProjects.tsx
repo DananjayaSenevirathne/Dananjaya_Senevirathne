@@ -1,14 +1,44 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useSpring,
+} from "framer-motion";
 import { useRef } from "react";
 
 const MINI = [
-  { name: "Coffee Shop Website", tag: "Web" },
-  { name: "Student Enrollment", tag: "System" },
-  { name: "Portfolio Website", tag: "Web" },
-  { name: "Task Manager", tag: "Productivity" },
-  { name: "Weather App", tag: "Data" },
-  { name: "Calculator", tag: "Utility" },
+  {
+    name: "Workzup Landing Page",
+    tag: "Web",
+    description:
+      "Official website for Workzup, showcasing digital solutions, services, team information, and company portfolio.",
+    link: "https://github.com/DananjayaSenevirathne/workzup",
+  },
+  {
+    name: "Smart Campus API",
+    tag: "Backend",
+    description:
+      "A Java-based REST API for monitoring campus environments through room management, sensor tracking, and real-time data collection.",
+    link: "https://github.com/DananjayaSenevirathne/smart-campus-api",
+  },
+  {
+    name: "Portfolio Website",
+    tag: "Web",
+    description:
+      "A responsive portfolio website built to showcase projects, skills, and experience with a modern and interactive design.",
+    link: "https://github.com/DananjayaSenevirathne",
+  },
+  {
+    name: "Loan Approval System",
+    tag: "ML",
+    description:
+      "A predictive analytics solution that evaluates loan applications and forecasts loan amounts using machine learning techniques.",
+    link: "https://github.com/DananjayaSenevirathne",
+  },
 ];
+
+// Infinite effect
+const LOOP_PROJECTS = [...MINI, ...MINI, ...MINI];
 
 export function MiniProjects() {
   const ref = useRef<HTMLDivElement>(null);
@@ -18,60 +48,157 @@ export function MiniProjects() {
     offset: ["start end", "end start"],
   });
 
-  const x = useTransform(scrollYProgress, [0, 1], ["10%", "-35%"]);
+  const xTransform = useTransform(
+  scrollYProgress,
+  [0, 1],
+  ["0%", "-50%"]
+);
+
+const x = useSpring(xTransform, {
+  stiffness: 25,
+  damping: 30,
+  mass: 1,
+});
 
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden py-32 md:py-48"
+      className="relative overflow-hidden py-24 md:py-32"
     >
+      {/* HEADER */}
+
       <div className="grid grid-cols-12 gap-6 px-6 md:px-10">
         <div className="col-span-12 flex items-baseline gap-4 md:col-span-3">
-          <span className="text-eyebrow text-muted-foreground">(04)</span>
-          <span className="text-eyebrow text-muted-foreground">Lab</span>
+          <span className="text-eyebrow text-muted-foreground">
+            (04)
+          </span>
+
+          <span className="text-eyebrow text-muted-foreground">
+            Lab
+          </span>
         </div>
 
-        <h2 className="col-span-12 text-huge md:col-span-9">
+        <h2
+          className="
+            col-span-12
+            md:col-span-9
+            font-display
+            text-6xl
+            md:text-8xl
+            leading-none
+          "
+        >
           Mini <span className="italic">experiments.</span>
         </h2>
       </div>
 
+      {/* CARDS */}
+
       <motion.div
         style={{ x }}
-        className="mt-20 flex gap-6 px-6 md:gap-10 md:px-10"
+        className="mt-20 flex gap-8 px-6 md:px-10"
       >
-        {MINI.map((m, i) => (
-          <motion.div
-            key={m.name}
-            whileHover={{ scale: 1.05, rotate: 0 }}
-            style={{ rotate: i % 2 === 0 ? -3 : 3 }}
-            className="group relative flex h-[420px] w-[300px] shrink-0 cursor-pointer flex-col justify-between rounded-lg border border-border bg-card p-6 md:h-[480px] md:w-[360px]"
+        {LOOP_PROJECTS.map((m, i) => (
+          <motion.a
+            key={`${m.name}-${i}`}
+            href={m.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{
+              scale: 1.04,
+              y: -12,
+            }}
+            transition={{
+              duration: 0.35,
+            }}
+            style={{
+              rotate: i % 2 === 0 ? -1.5 : 1.5,
+            }}
+            className="
+              group
+              relative
+              flex
+              h-[420px]
+              w-[330px]
+              shrink-0
+              flex-col
+              justify-between
+              rounded-[24px]
+              border
+              border-white/10
+              bg-[#030A2A]
+              p-8
+              shadow-xl
+            "
           >
+            {/* TOP */}
+
             <div className="flex items-center justify-between">
-              <span className="font-mono text-xs text-muted-foreground">
-                0{i + 1} / 0{MINI.length}
+              <span className="font-mono text-xs text-white/40">
+                0{(i % MINI.length) + 1} / 0{MINI.length}
               </span>
 
-              <span className="font-mono text-xs text-muted-foreground">
+              <span className="font-mono text-xs text-white/50">
                 {m.tag}
               </span>
             </div>
 
+            {/* DESCRIPTION */}
+
+            <div className="mt-8 min-h-[110px]">
+              <p
+                className="
+                  max-w-[240px]
+                  text-sm
+                  leading-8
+                  text-white/75
+                "
+              >
+                {m.description}
+              </p>
+            </div>
+
+            {/* TITLE */}
+
             <div>
-              <h3 className="font-display text-4xl md:text-5xl">
+              <h3
+                className="
+                  font-display
+                  text-4xl
+                  leading-none
+                  text-white
+                "
+              >
                 {m.name}
               </h3>
 
-              <div className="mt-4 h-px w-full bg-border" />
+              <div className="mt-6 h-px w-full bg-white/10" />
 
-              <div className="mt-4 flex items-center justify-between font-mono text-xs">
-                <span>Open Demo</span>
-                <span className="transition-transform group-hover:translate-x-1">
+              <div
+                className="
+                  mt-5
+                  flex
+                  items-center
+                  justify-between
+                  font-mono
+                  text-xs
+                  text-white
+                "
+              >
+                <span>View Project</span>
+
+                <span
+                  className="
+                    transition-transform
+                    duration-300
+                    group-hover:translate-x-1
+                  "
+                >
                   →
                 </span>
               </div>
             </div>
-          </motion.div>
+          </motion.a>
         ))}
       </motion.div>
     </section>
