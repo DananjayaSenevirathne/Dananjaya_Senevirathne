@@ -9,7 +9,7 @@ const STEPS = [
   },
   {
     year: "2022",
-    title: "G.C.E Advanced Level – Physical Science",
+    title: "G.C.E Advanced Level - Physical Science",
     body: "Completed G.C.E Advanced Level in the Physical Science stream at St. Sylvester's College, Kandy, studying Combined Mathematics, Physics, and Chemistry.",
   },
   {
