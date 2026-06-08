@@ -37,6 +37,14 @@ const textOpacity = useTransform(
   [0, 0.5],
   [1, 0.15]
 );
+const handleDownloadCV = () => {
+  const link = document.createElement("a");
+  link.href = "/cv/Dananjaya_Senevirathne_CV.pdf";
+  link.download = "Dananjaya_Senevirathne_CV.pdf";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
 
   return (
     <section
@@ -94,14 +102,15 @@ const textOpacity = useTransform(
 
         <div className="mt-12 flex flex-wrap gap-4">
           <Magnetic>
-            <a
-              href="#resume"
-              className="inline-flex items-center gap-3 rounded-full bg-foreground px-7 py-3 text-background"
-            >
-              Resume
-              <ArrowDownRight size={18} />
-            </a>
-          </Magnetic>
+  <a
+    href="public\cv\Dananajaya senevirathne.pdf"
+    download="Dananjaya_Senevirathne_CV.pdf"
+    className="inline-flex items-center gap-3 rounded-full bg-foreground px-7 py-3 text-background"
+  >
+    Resume
+    <ArrowDownRight size={18} />
+  </a>
+</Magnetic>
 
           <Magnetic>
             <a
