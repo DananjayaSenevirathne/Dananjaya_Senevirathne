@@ -13,7 +13,6 @@ import { Projects } from "@/components/sections/Projects";
 import { MiniProjects } from "@/components/sections/MiniProjects";
 import { Timeline } from "@/components/sections/Timeline";
 import { Achievements } from "@/components/sections/Achievements";
-import { BeyondCode } from "@/components/sections/BeyondCode";
 import { Contact } from "@/components/sections/Contact";
 
 export const Route = createFileRoute("/")({
@@ -40,7 +39,6 @@ function Index() {
         <MiniProjects />
         <Timeline />
         <Achievements />
-        <BeyondCode />
         <Contact />
       </main>
     </>
