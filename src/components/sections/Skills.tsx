@@ -15,13 +15,16 @@ const CATEGORIES = [
     icon: Code2,
     desc: "Building scalable, high-performance web applications using modern frontend and backend technologies. From intuitive user interfaces to robust backend architectures, I create complete digital products that deliver real business value.",
     tech: [
-      "React",
-      "Next.js",
-      "Node.js",
-      "Express",
-      "MongoDB",
-      "PostgreSQL",
-    ],
+  "HTML",
+  "React",
+  "Next.js",
+  "Node.js",
+  "Express",
+  "MongoDB",
+  "PostgreSQL",
+  "CSS",
+  "Tailwind CSS",
+]
   },
   {
     title: "Programming",
@@ -59,8 +62,10 @@ const CATEGORIES = [
       "Canva",
       "Git",
       "GitHub",
+      "Postman",
       "Agile",
       "OOP",
+      
     ],
   },
 ];
