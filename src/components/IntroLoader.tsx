@@ -36,7 +36,11 @@ export function IntroLoader({ onDone }: { onDone: () => void }) {
         <motion.div
           className="fixed inset-0 z-[10000] flex flex-col justify-between bg-black p-6 text-white md:p-10"
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0, y: "-100%" }}
+          exit={{
+  opacity: 0,
+  scale: 1.05,
+  clipPath: "inset(0 0 100% 0)",
+}}
           transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1] }}
         >
           <div className="flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.2em] text-white/60">
