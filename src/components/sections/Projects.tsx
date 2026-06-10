@@ -89,21 +89,17 @@ function ProjectItem({
       transition={{
         duration: 0.7,
       }}
-      className="
-        min-h-[70vh]
-        flex
-        items-center
-      "
+      className="min-h-[48vh] flex items-center py-6 md:min-h-[70vh] md:py-0"
     >
-      <div className="grid grid-cols-12 gap-6 w-full">
+      <div className="grid w-full grid-cols-1 gap-6 md:grid-cols-12">
 
-        <div className="col-span-2">
+        <div className="md:col-span-2">
           <span className="font-mono text-2xl text-muted-foreground">
             {project.n}
           </span>
         </div>
 
-        <div className="col-span-9">
+        <div className="md:col-span-9">
 
           <motion.h3
             animate={{
@@ -114,7 +110,7 @@ function ProjectItem({
             }}
             className="
               font-display
-              text-6xl
+              text-4xl
               md:text-8xl
               leading-none
             "
@@ -122,7 +118,7 @@ function ProjectItem({
             {project.name}
           </motion.h3>
 
-          <p className="mt-6 max-w-2xl text-xl text-muted-foreground">
+          <p className="mt-5 max-w-2xl text-base text-muted-foreground md:mt-6 md:text-xl">
             {project.overview}
           </p>
 
@@ -139,7 +135,7 @@ function ProjectItem({
 
         </div>
 
-        <div className="col-span-1 flex justify-end">
+        <div className="flex justify-start md:col-span-1 md:justify-end">
           <ArrowUpRight className="h-7 w-7" />
         </div>
 
@@ -155,11 +151,11 @@ export function Projects() {
   return (
     <section
       id="work"
-      className="px-6 py-32 md:px-12"
+      className="px-6 py-24 md:px-12 md:py-32"
     >
       {/* HEADER */}
 
-      <div className="mb-32">
+      <div className="mb-20 md:mb-32">
 
         <div className="flex items-center gap-4">
           <span className="text-eyebrow text-muted-foreground">
@@ -177,7 +173,7 @@ export function Projects() {
               mt-10
               text-center
               font-display
-              text-[5rem]
+              text-[clamp(3rem,15vw,5rem)]
               md:text-[10rem]
               leading-none
             "
@@ -193,7 +189,7 @@ export function Projects() {
 
       {/* CONTENT */}
 
-      <div className="grid grid-cols-12 gap-24">
+      <div className="grid grid-cols-12 gap-14 md:gap-24">
 
         {/* LEFT SIDE */}
 
@@ -262,7 +258,8 @@ export function Projects() {
     duration: 0.3,
   }}
                     className="
-                      h-[350px]
+                      h-[240px]
+                      md:h-[350px]
                       w-full
                       object-cover
                     "
@@ -283,13 +280,13 @@ export function Projects() {
     {activeProject.category}
   </div>
 
-  <div className="mt-4 flex items-start justify-between gap-4">
+  <div className="mt-4 flex flex-col items-start justify-between gap-4 sm:flex-row">
 
-    <h3 className="font-display text-5xl">
+    <h3 className="font-display text-4xl md:text-5xl">
       {activeProject.name}
     </h3>
 
-    <div className="flex gap-3">
+    <div className="flex gap-3 self-end sm:self-auto">
 
       {/* Github Button */}
 
@@ -345,7 +342,7 @@ export function Projects() {
 
   </div>
 
-  <p className="mt-5 leading-8 text-muted-foreground">
+  <p className="mt-5 text-sm leading-7 text-muted-foreground md:text-base md:leading-8">
     {activeProject.description}
   </p>
 

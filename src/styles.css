@@ -112,6 +112,8 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+    min-width: 320px;
   }
 
   body {
@@ -125,6 +127,11 @@
   ::selection {
     background: var(--ink);
     color: var(--paper);
+  }
+
+  img, video, canvas, svg {
+    display: block;
+    max-width: 100%;
   }
 }
 

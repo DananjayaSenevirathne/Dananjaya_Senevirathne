@@ -63,7 +63,7 @@ const x = useSpring(xTransform, {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden py-24 md:py-32"
+      className="relative overflow-hidden py-20 md:py-32"
     >
       {/* HEADER */}
 
@@ -79,14 +79,7 @@ const x = useSpring(xTransform, {
         </div>
 
         <h2
-          className="
-            col-span-12
-            md:col-span-9
-            font-display
-            text-6xl
-            md:text-8xl
-            leading-none
-          "
+          className="col-span-12 font-display text-[clamp(3rem,14vw,4.5rem)] leading-none md:col-span-9 md:text-8xl"
         >
           Mini <span className="italic">experiments.</span>
         </h2>
@@ -96,7 +89,7 @@ const x = useSpring(xTransform, {
 
       <motion.div
         style={{ x }}
-        className="mt-20 flex gap-8 px-6 md:px-10"
+        className="mt-14 flex gap-5 px-6 md:mt-20 md:gap-8 md:px-10"
       >
         {LOOP_PROJECTS.map((m, i) => (
           <motion.a
@@ -114,22 +107,7 @@ const x = useSpring(xTransform, {
             style={{
               rotate: i % 2 === 0 ? -1.5 : 1.5,
             }}
-            className="
-              group
-              relative
-              flex
-              h-[420px]
-              w-[330px]
-              shrink-0
-              flex-col
-              justify-between
-              rounded-[24px]
-              border
-              border-white/10
-              bg-[#030A2A]
-              p-8
-              shadow-xl
-            "
+            className="group relative flex h-[360px] w-[280px] shrink-0 flex-col justify-between rounded-[24px] border border-white/10 bg-[#030A2A] p-6 shadow-xl md:h-[420px] md:w-[330px] md:p-8"
           >
             {/* TOP */}
 
@@ -145,12 +123,12 @@ const x = useSpring(xTransform, {
 
             {/* DESCRIPTION */}
 
-            <div className="mt-8 min-h-[110px]">
+            <div className="mt-8 min-h-[96px] md:min-h-[110px]">
               <p
                 className="
-                  max-w-[240px]
+                  max-w-[220px]
                   text-sm
-                  leading-8
+                  leading-7
                   text-white/75
                 "
               >
@@ -162,12 +140,7 @@ const x = useSpring(xTransform, {
 
             <div>
               <h3
-                className="
-                  font-display
-                  text-4xl
-                  leading-none
-                  text-white
-                "
+                className="font-display text-3xl leading-none text-white md:text-4xl"
               >
                 {m.name}
               </h3>

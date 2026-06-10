@@ -23,19 +23,19 @@ export function Contact() {
   return (
     <section
       id="contact"
-      className="relative overflow-hidden bg-[#0b0d1f] px-6 py-32 text-white md:px-12 md:py-40"
+      className="relative overflow-hidden bg-[#0b0d1f] px-6 py-24 text-white md:px-12 md:py-40"
     >
       {/* Background Glow */}
       <div className="absolute left-1/2 top-0 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-[var(--signal)]/10 blur-[180px]" />
 
-      <div className="relative z-10 grid items-center gap-20 lg:grid-cols-2">
+      <div className="relative z-10 grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
         {/* LEFT */}
         <div>
           <span className="mb-8 block font-mono text-xs uppercase tracking-[0.3em] text-white/50">
             (09) Contact
           </span>
 
-          <h2 className="max-w-xl text-6xl font-bold leading-[1.05] md:text-8xl">
+          <h2 className="max-w-xl text-4xl font-bold leading-[1.05] sm:text-5xl md:text-8xl">
             Let's build
             <br />
             something
@@ -43,7 +43,7 @@ export function Contact() {
             extraordinary.
           </h2>
 
-          <p className="mt-10 max-w-lg text-lg leading-relaxed text-white/60">
+          <p className="mt-8 max-w-lg text-base leading-relaxed text-white/60 md:mt-10 md:text-lg">
             Whether you have a project in mind or just want to say hi,
             I'm always open to discussing new ideas, collaborations,
             and internship opportunities.
@@ -54,7 +54,7 @@ export function Contact() {
               Connect
             </h4>
 
-            <div className="flex gap-4">
+            <div className="flex flex-wrap gap-4">
               {LINKS.map((item, index) => {
                 const Icon = item.icon;
 
@@ -78,45 +78,45 @@ export function Contact() {
         </div>
 
         {/* RIGHT */}
-        <div className="rounded-[40px] border border-white/10 bg-black/20 p-10 backdrop-blur-xl shadow-[0_20px_80px_rgba(0,0,0,0.5)] md:p-14">
-          <h3 className="mb-10 text-4xl font-bold">
+        <div className="rounded-[40px] border border-white/10 bg-black/20 p-6 backdrop-blur-xl shadow-[0_20px_80px_rgba(0,0,0,0.5)] md:p-10 lg:p-14">
+          <h3 className="mb-8 text-3xl font-bold md:mb-10 md:text-4xl">
             Send a Message
           </h3>
 
-          <form className="space-y-8">
+          <form className="space-y-6 md:space-y-8">
             <div>
-              <label className="mb-3 block text-white/60">
+              <label className="mb-2 block text-white/60 md:mb-3">
                 Name
               </label>
 
               <input
                 type="text"
                 placeholder="Your Name"
-                className="w-full rounded-2xl border border-white/10 bg-white/5 px-6 py-4 outline-none transition-all focus:border-white/30"
+                className="w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-4 outline-none transition-all focus:border-white/30 md:px-6"
               />
             </div>
 
             <div>
-              <label className="mb-3 block text-white/60">
+              <label className="mb-2 block text-white/60 md:mb-3">
                 Email
               </label>
 
               <input
                 type="email"
                 placeholder="your@email.com"
-                className="w-full rounded-2xl border border-white/10 bg-white/5 px-6 py-4 outline-none transition-all focus:border-white/30"
+                className="w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-4 outline-none transition-all focus:border-white/30 md:px-6"
               />
             </div>
 
             <div>
-              <label className="mb-3 block text-white/60">
+              <label className="mb-2 block text-white/60 md:mb-3">
                 Message
               </label>
 
               <textarea
                 rows={5}
                 placeholder="Tell me about your project..."
-                className="w-full resize-none rounded-2xl border border-white/10 bg-white/5 px-6 py-4 outline-none transition-all focus:border-white/30"
+                className="w-full resize-none rounded-2xl border border-white/10 bg-white/5 px-5 py-4 outline-none transition-all focus:border-white/30 md:px-6"
               />
             </div>
 

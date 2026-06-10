@@ -47,10 +47,10 @@ export function Timeline() {
     <section
       id="timeline"
       ref={ref}
-      className="relative px-6 py-32 md:px-12 md:py-48"
+      className="relative px-6 py-24 md:px-12 md:py-48"
     >
       {/* Header */}
-      <div className="mb-24 grid grid-cols-12 gap-6">
+      <div className="mb-16 grid grid-cols-12 gap-6 md:mb-24">
         <div className="col-span-12 flex items-baseline gap-4 md:col-span-3">
           <span className="text-eyebrow text-muted-foreground">
             (05)
@@ -61,7 +61,7 @@ export function Timeline() {
           </span>
         </div>
 
-        <h2 className="col-span-12 text-huge md:col-span-9">
+        <h2 className="col-span-12 text-[clamp(3rem,14vw,4.5rem)] md:col-span-9 md:text-huge">
           A <span className="italic">timeline.</span>
         </h2>
       </div>
@@ -77,7 +77,7 @@ export function Timeline() {
           />
         </div>
 
-        <div className="space-y-32">
+        <div className="space-y-24 md:space-y-32">
           {STEPS.map((step, i) => (
             <motion.div
               key={step.year}
@@ -88,7 +88,7 @@ export function Timeline() {
                 duration: 0.8,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="relative pl-12 md:grid md:grid-cols-2 md:gap-24 md:pl-0"
+              className="relative pl-10 md:grid md:grid-cols-2 md:gap-24 md:pl-0"
             >
               {/* Dot */}
               <div className="absolute left-3 top-10 h-5 w-5 -translate-x-1/2 rounded-full border-4 border-background bg-[var(--signal)] md:left-1/2" />
@@ -97,12 +97,12 @@ export function Timeline() {
               <div
                 className={`flex ${
                   i % 2 === 0
-                    ? "justify-end md:pr-44"
-                    : "justify-end md:pr-8"
+                    ? "justify-start md:justify-end md:pr-44"
+                    : "justify-start md:justify-end md:pr-8"
                 }`}
               >
-                <div className="w-[500px] text-right">
-                  <div className="font-display text-[7rem] italic leading-none text-foreground/10 md:text-[10rem]">
+                <div className="w-full text-left md:w-[500px] md:text-right">
+                  <div className="font-display text-[clamp(3.5rem,18vw,7rem)] italic leading-none text-foreground/10 md:text-[10rem]">
                     {step.year}
                   </div>
                 </div>
@@ -111,11 +111,11 @@ export function Timeline() {
               {/* Content */}
               <div className="flex justify-start md:pl-24">
                 <div className="max-w-[650px]">
-                  <h3 className="font-display text-3xl leading-[1.1] md:text-5xl">
+                  <h3 className="font-display text-2xl leading-[1.1] md:text-5xl">
                     {step.title}
                   </h3>
 
-                  <p className="mt-5 text-lg leading-8 text-muted-foreground">
+                  <p className="mt-4 text-base leading-7 text-muted-foreground md:mt-5 md:text-lg md:leading-8">
                     {step.body}
                   </p>
                 </div>

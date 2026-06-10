@@ -15,7 +15,7 @@ export function Nav() {
         style={{ scaleX: sx, width: "100%" }}
       />
 
-      <header className="fixed inset-x-0 top-0 z-40 flex items-center justify-between px-6 py-5 mix-blend-difference md:px-10">
+      <header className="fixed inset-x-0 top-0 z-40 flex items-center justify-between px-4 py-4 mix-blend-difference md:px-10 md:py-5">
         <a href="#top" className="font-display text-2xl text-white">
           DS<span className="text-[var(--signal)]">.</span>
         </a>
@@ -27,7 +27,7 @@ export function Nav() {
           <a href="#contact">Contact</a>
         </nav>
 
-        <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-white">
+        <span className="hidden font-mono text-[11px] uppercase tracking-[0.2em] text-white sm:block">
         </span>
       </header>
     </>

@@ -79,10 +79,10 @@ export function Skills() {
   return (
     <section
       id="skills"
-      className="relative px-6 py-32 md:px-12 md:py-40"
+      className="relative px-6 py-24 md:px-12 md:py-40"
     >
       {/* Header */}
-      <div className="mb-20 grid grid-cols-12 gap-6">
+      <div className="mb-16 grid grid-cols-12 gap-6 md:mb-20">
         <div className="col-span-12 md:col-span-3">
           <div className="flex items-center gap-4">
             <span className="font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground">
@@ -103,10 +103,10 @@ export function Skills() {
       </div>
 
       {/* Main Layout */}
-      <div className="grid items-start gap-16 lg:grid-cols-[1fr_450px]">
+      <div className="grid items-start gap-10 lg:grid-cols-[1fr_450px] lg:gap-16">
 
         {/* LEFT SIDE - CARDS */}
-        <div className="space-y-5">
+        <div className="space-y-4 md:space-y-5">
           {CATEGORIES.map((item, index) => {
             const Icon = item.icon;
 
@@ -121,23 +121,23 @@ export function Skills() {
                 transition={{
                   duration: 0.3,
                 }}
-                className={`group flex w-full items-center justify-between rounded-[32px] border p-8 text-left transition-all duration-500 ${
+                className={`group flex w-full flex-col items-start justify-between gap-5 rounded-[32px] border p-6 text-left transition-all duration-500 md:flex-row md:items-center md:p-8 ${
                   active === index
                     ? "bg-[#111827] text-white shadow-2xl"
                     : "bg-background hover:bg-accent"
                 }`}
               >
-                <div className="flex items-center gap-6">
+                <div className="flex items-center gap-4 md:gap-6">
                   <span className="font-mono text-xs opacity-60">
                     0{index + 1}
                   </span>
 
-                  <h3 className="font-display text-3xl md:text-5xl">
+                  <h3 className="font-display text-2xl md:text-5xl">
                     {item.title}
                   </h3>
                 </div>
 
-                <div className="flex items-center gap-5">
+                <div className="flex w-full items-center justify-between gap-5 md:w-auto md:justify-start">
                   <span className="font-mono text-xs uppercase opacity-60">
                     {item.code}
                   </span>
@@ -166,8 +166,8 @@ export function Skills() {
         </div>
 
         {/* RIGHT SIDE - STICKY PANEL */}
-        <div className="hidden lg:block">
-          <div className="sticky top-32">
+        <div className="block lg:block">
+          <div className="mt-6 lg:sticky lg:top-32 lg:mt-0">
             <AnimatePresence mode="wait">
               <motion.div
                 key={current.title}
@@ -176,7 +176,7 @@ export function Skills() {
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.35 }}
               >
-                <div className="mb-8 flex items-center gap-4">
+                <div className="mb-6 flex items-center gap-4 md:mb-8">
                   <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-foreground text-background">
                     <CurrentIcon size={30} />
                   </div>
@@ -188,11 +188,11 @@ export function Skills() {
                   </div>
                 </div>
 
-                <h3 className="font-display text-5xl leading-none">
+                <h3 className="font-display text-4xl leading-none md:text-5xl">
                   {current.title}
                 </h3>
 
-                <p className="mt-8 mb-10 text-lg leading-8 text-muted-foreground">
+                <p className="mt-6 mb-8 text-base leading-7 text-muted-foreground md:mt-8 md:mb-10 md:text-lg md:leading-8">
                   {current.desc}
                 </p>
 

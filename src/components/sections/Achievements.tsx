@@ -27,16 +27,16 @@ function Counter({ to }: { to: number }) {
 
 export function Achievements() {
   return (
-    <section className="border-y border-border px-6 py-24 md:px-10">
+    <section className="border-y border-border px-6 py-20 md:px-10 md:py-24">
       <div className="grid grid-cols-2 gap-px bg-border md:grid-cols-4">
         {STATS.map((s) => (
-          <div key={s.label} className="bg-background p-6 md:p-10">
-            <div className="font-display text-6xl md:text-8xl">
+          <div key={s.label} className="bg-background p-5 md:p-10">
+            <div className="font-display text-5xl md:text-8xl">
               <Counter to={s.value} />
               {s.suffix}
             </div>
 
-            <div className="mt-4 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+            <div className="mt-3 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground md:mt-4 md:text-xs">
               {s.label}
             </div>
           </div>
