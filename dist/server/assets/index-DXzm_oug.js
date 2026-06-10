@@ -662,9 +662,21 @@ function ProjectItem({
   setActiveProject
 }) {
   const ref = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
   const isInView = useInView(ref, {
     amount: 0.7
   });
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 768px)");
+    const update = () => {
+      setIsMobile(media.matches);
+    };
+    update();
+    media.addEventListener("change", update);
+    return () => {
+      media.removeEventListener("change", update);
+    };
+  }, []);
   useEffect(() => {
     if (isInView) {
       setActiveProject(project);
@@ -676,22 +688,22 @@ function ProjectItem({
     {
       ref,
       animate: {
-        opacity: isActive ? 1 : 0.2,
-        scale: isActive ? 1 : 0.85,
-        filter: isActive ? "blur(0px)" : "blur(4px)"
+        opacity: isMobile ? 1 : isActive ? 1 : 0.2,
+        scale: isMobile ? 1 : isActive ? 1 : 0.85,
+        filter: isMobile ? "blur(0px)" : isActive ? "blur(0px)" : "blur(4px)"
       },
       transition: {
         duration: 0.7
       },
-      className: "min-h-[48vh] flex items-center py-6 md:min-h-[70vh] md:py-0",
+      className: "flex items-center py-3 md:min-h-[70vh] md:py-0",
       children: /* @__PURE__ */ jsxs("div", { className: "grid w-full grid-cols-1 gap-6 md:grid-cols-12", children: [
-        /* @__PURE__ */ jsx("div", { className: "md:col-span-2", children: /* @__PURE__ */ jsx("span", { className: "font-mono text-2xl text-muted-foreground", children: project.n }) }),
+        /* @__PURE__ */ jsx("div", { className: "md:col-span-2", children: /* @__PURE__ */ jsx("span", { className: "font-mono text-xl md:text-2xl text-muted-foreground", children: project.n }) }),
         /* @__PURE__ */ jsxs("div", { className: "md:col-span-9", children: [
           /* @__PURE__ */ jsx(
             motion.h3,
             {
               animate: {
-                y: isActive ? 0 : 40
+                y: isMobile ? 0 : isActive ? 0 : 40
               },
               transition: {
                 duration: 0.6
@@ -714,7 +726,7 @@ function Projects() {
     "section",
     {
       id: "work",
-      className: "px-6 py-24 md:px-12 md:py-32",
+      className: "px-6 py-20 md:px-12 md:py-32",
       children: [
         /* @__PURE__ */ jsxs("div", { className: "mb-20 md:mb-32", children: [
           /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-4", children: [
@@ -724,7 +736,7 @@ function Projects() {
           /* @__PURE__ */ jsx("div", { className: "flex justify-center", children: /* @__PURE__ */ jsxs(
             "h2",
             {
-              className: "\r\n              mt-10\r\n              text-center\r\n              font-display\r\n              text-[clamp(3rem,15vw,5rem)]\r\n              md:text-[10rem]\r\n              leading-none\r\n            ",
+              className: "\r\n              mt-6\r\n              text-center\r\n              font-display\r\n              text-[clamp(3rem,15vw,5rem)]\r\n              md:text-[10rem]\r\n              leading-none\r\n            ",
               children: [
                 "Featured",
                 " ",
@@ -733,8 +745,8 @@ function Projects() {
             }
           ) })
         ] }),
-        /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-12 gap-14 md:gap-24", children: [
-          /* @__PURE__ */ jsx("div", { className: "col-span-12 md:col-span-7", children: /* @__PURE__ */ jsx("div", { className: "divide-y divide-border", children: PROJECTS.map((project) => /* @__PURE__ */ jsx(
+        /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-12 gap-8 md:gap-24", children: [
+          /* @__PURE__ */ jsx("div", { className: "col-span-12 order-2 md:order-1 md:col-span-7", children: /* @__PURE__ */ jsx("div", { className: "divide-y divide-border", children: PROJECTS.map((project) => /* @__PURE__ */ jsx(
             ProjectItem,
             {
               project,
@@ -743,7 +755,7 @@ function Projects() {
             },
             project.id
           )) }) }),
-          /* @__PURE__ */ jsx("div", { className: "col-span-12 md:col-span-5", children: /* @__PURE__ */ jsx("div", { className: "sticky top-24", children: /* @__PURE__ */ jsx(AnimatePresence, { mode: "wait", children: /* @__PURE__ */ jsxs(
+          /* @__PURE__ */ jsx("div", { className: "col-span-12 order-1 md:order-2 md:col-span-5", children: /* @__PURE__ */ jsx("div", { className: "mt-0 rounded-[32px] border border-border bg-card p-4 shadow-lg md:mt-0 md:bg-transparent md:p-0 md:shadow-none lg:sticky lg:top-24", children: /* @__PURE__ */ jsx(AnimatePresence, { mode: "wait", children: /* @__PURE__ */ jsx(
             motion.div,
             {
               initial: {
@@ -758,50 +770,32 @@ function Projects() {
                 opacity: 0,
                 y: -40
               },
-              children: [
+              children: /* @__PURE__ */ jsxs("div", { className: "overflow-hidden rounded-[28px] border border-border bg-white p-5 sm:p-6 w-full max-w-none", children: [
                 /* @__PURE__ */ jsx(
-                  "div",
+                  motion.img,
                   {
-                    className: "\r\n                    overflow-hidden\r\n                    rounded-[32px]\r\n                    border\r\n                    border-border\r\n                    bg-white\r\n                  ",
-                    children: /* @__PURE__ */ jsx(
-                      motion.img,
-                      {
-                        src: activeProject.image,
-                        alt: activeProject.name,
-                        initial: {
-                          opacity: 0
-                        },
-                        animate: {
-                          opacity: 1
-                        },
-                        transition: {
-                          duration: 0.3
-                        },
-                        className: "\r\n                      h-[240px]\r\n                      md:h-[350px]\r\n                      w-full\r\n                      object-cover\r\n                    "
-                      },
-                      activeProject.image
-                    )
-                  }
+                    src: activeProject.image,
+                    alt: activeProject.name,
+                    initial: { opacity: 0 },
+                    animate: { opacity: 1 },
+                    transition: { duration: 0.3 },
+                    className: "w-full h-[220px] object-cover sm:h-[260px] md:h-[350px] rounded-t-2xl object-center"
+                  },
+                  activeProject.image
                 ),
-                /* @__PURE__ */ jsxs("div", { className: "mt-8", children: [
-                  /* @__PURE__ */ jsx(
-                    "div",
-                    {
-                      className: "\r\n      font-mono\r\n      text-xs\r\n      uppercase\r\n      tracking-[0.3em]\r\n      text-muted-foreground\r\n    ",
-                      children: activeProject.category
-                    }
-                  ),
-                  /* @__PURE__ */ jsxs("div", { className: "mt-4 flex flex-col items-start justify-between gap-4 sm:flex-row", children: [
-                    /* @__PURE__ */ jsx("h3", { className: "font-display text-4xl md:text-5xl", children: activeProject.name }),
-                    /* @__PURE__ */ jsxs("div", { className: "flex gap-3 self-end sm:self-auto", children: [
+                /* @__PURE__ */ jsxs("div", { className: "mt-4", children: [
+                  /* @__PURE__ */ jsx("div", { className: "font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground", children: activeProject.category }),
+                  /* @__PURE__ */ jsxs("div", { className: "mt-3 flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center", children: [
+                    /* @__PURE__ */ jsx("h3", { className: "font-display text-2xl md:text-4xl", children: activeProject.name }),
+                    /* @__PURE__ */ jsxs("div", { className: "flex gap-3", children: [
                       /* @__PURE__ */ jsx(
                         "a",
                         {
                           href: activeProject.github,
                           target: "_blank",
                           rel: "noopener noreferrer",
-                          className: "\r\n          flex\r\n          h-12\r\n          w-12\r\n          items-center\r\n          justify-center\r\n          rounded-full\r\n          border\r\n          border-border\r\n          transition-all\r\n          duration-300\r\n          hover:scale-110\r\n          hover:bg-black\r\n          hover:text-white\r\n        ",
-                          children: /* @__PURE__ */ jsx(Github, { className: "h-5 w-5" })
+                          className: "flex h-10 w-10 items-center justify-center rounded-full border border-border transition-all duration-300 hover:scale-110 hover:bg-black hover:text-white",
+                          children: /* @__PURE__ */ jsx(Github, { className: "h-4 w-4" })
                         }
                       ),
                       /* @__PURE__ */ jsx(
@@ -810,22 +804,16 @@ function Projects() {
                           href: activeProject.demo,
                           target: "_blank",
                           rel: "noopener noreferrer",
-                          className: "\r\n          flex\r\n          h-12\r\n          w-12\r\n          items-center\r\n          justify-center\r\n          rounded-full\r\n          border\r\n          border-border\r\n          transition-all\r\n          duration-300\r\n          hover:scale-110\r\n          hover:bg-black\r\n          hover:text-white\r\n        ",
-                          children: /* @__PURE__ */ jsx(ArrowUpRight, { className: "h-5 w-5" })
+                          className: "flex h-10 w-10 items-center justify-center rounded-full border border-border transition-all duration-300 hover:scale-110 hover:bg-black hover:text-white",
+                          children: /* @__PURE__ */ jsx(ArrowUpRight, { className: "h-4 w-4" })
                         }
                       )
                     ] })
                   ] }),
-                  /* @__PURE__ */ jsx("p", { className: "mt-5 text-sm leading-7 text-muted-foreground md:text-base md:leading-8", children: activeProject.description }),
-                  /* @__PURE__ */ jsx(
-                    "div",
-                    {
-                      className: "\r\n      mt-8\r\n      font-mono\r\n      text-xs\r\n      uppercase\r\n      tracking-[0.3em]\r\n      text-muted-foreground\r\n    ",
-                      children: activeProject.tech
-                    }
-                  )
+                  /* @__PURE__ */ jsx("p", { className: "mt-4 text-sm leading-7 text-muted-foreground md:text-base md:leading-8", children: activeProject.description }),
+                  /* @__PURE__ */ jsx("div", { className: "mt-6 font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground", children: activeProject.tech })
                 ] })
-              ]
+              ] })
             },
             activeProject.id
           ) }) }) })

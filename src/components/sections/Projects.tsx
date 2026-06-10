@@ -62,10 +62,26 @@ function ProjectItem({
   setActiveProject,
 }: any) {
   const ref = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   const isInView = useInView(ref, {
     amount: 0.7,
   });
+
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 768px)");
+
+    const update = () => {
+      setIsMobile(media.matches);
+    };
+
+    update();
+    media.addEventListener("change", update);
+
+    return () => {
+      media.removeEventListener("change", update);
+    };
+  }, []);
 
   useEffect(() => {
     if (isInView) {
@@ -80,21 +96,23 @@ function ProjectItem({
     <motion.div
       ref={ref}
       animate={{
-        opacity: isActive ? 1 : 0.2,
-        scale: isActive ? 1 : 0.85,
-        filter: isActive
+        opacity: isMobile ? 1 : isActive ? 1 : 0.2,
+        scale: isMobile ? 1 : isActive ? 1 : 0.85,
+        filter: isMobile
           ? "blur(0px)"
-          : "blur(4px)",
+          : isActive
+            ? "blur(0px)"
+            : "blur(4px)",
       }}
       transition={{
         duration: 0.7,
       }}
-      className="min-h-[48vh] flex items-center py-6 md:min-h-[70vh] md:py-0"
+      className="flex items-center py-3 md:min-h-[70vh] md:py-0"
     >
       <div className="grid w-full grid-cols-1 gap-6 md:grid-cols-12">
 
         <div className="md:col-span-2">
-          <span className="font-mono text-2xl text-muted-foreground">
+          <span className="font-mono text-xl md:text-2xl text-muted-foreground">
             {project.n}
           </span>
         </div>
@@ -103,7 +121,7 @@ function ProjectItem({
 
           <motion.h3
             animate={{
-              y: isActive ? 0 : 40,
+              y: isMobile ? 0 : isActive ? 0 : 40,
             }}
             transition={{
               duration: 0.6,
@@ -151,7 +169,7 @@ export function Projects() {
   return (
     <section
       id="work"
-      className="px-6 py-24 md:px-12 md:py-32"
+      className="px-6 py-20 md:px-12 md:py-32"
     >
       {/* HEADER */}
 
@@ -170,7 +188,7 @@ export function Projects() {
         <div className="flex justify-center">
           <h2
             className="
-              mt-10
+              mt-6
               text-center
               font-display
               text-[clamp(3rem,15vw,5rem)]
@@ -189,11 +207,11 @@ export function Projects() {
 
       {/* CONTENT */}
 
-      <div className="grid grid-cols-12 gap-14 md:gap-24">
+      <div className="grid grid-cols-12 gap-8 md:gap-24">
 
         {/* LEFT SIDE */}
 
-        <div className="col-span-12 md:col-span-7">
+        <div className="col-span-12 order-2 md:order-1 md:col-span-7">
 
           <div className="divide-y divide-border">
 
@@ -212,9 +230,9 @@ export function Projects() {
 
         {/* RIGHT SIDE */}
 
-        <div className="col-span-12 md:col-span-5">
+        <div className="col-span-12 order-1 md:order-2 md:col-span-5">
 
-          <div className="sticky top-24">
+          <div className="mt-0 rounded-[32px] border border-border bg-card p-4 shadow-lg md:mt-0 md:bg-transparent md:p-0 md:shadow-none lg:sticky lg:top-24">
 
             <AnimatePresence mode="wait">
 
@@ -235,131 +253,62 @@ export function Projects() {
               y: -40,
               }}
               >
-                <div
-                  className="
-                    overflow-hidden
-                    rounded-[32px]
-                    border
-                    border-border
-                    bg-white
-                  "
-                >
-                  <motion.img
-                    key={activeProject.image}
-                    src={activeProject.image}
-                    alt={activeProject.name}
-                    initial={{
-    opacity: 0,
-  }}
-  animate={{
-    opacity: 1,
-  }}
-  transition={{
-    duration: 0.3,
-  }}
-                    className="
-                      h-[240px]
-                      md:h-[350px]
-                      w-full
-                      object-cover
-                    "
-                  />
-                </div>
+                
+                  <div className="overflow-hidden rounded-[28px] border border-border bg-white p-5 sm:p-6 w-full max-w-none">
+                    <motion.img
+                      key={activeProject.image}
+                      src={activeProject.image}
+                      alt={activeProject.name}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.3 }}
+                      className="w-full h-[220px] object-cover sm:h-[260px] md:h-[350px] rounded-t-2xl object-center"
+                    />
 
-              <div className="mt-8">
+                    <div className="mt-4">
 
-  <div
-    className="
-      font-mono
-      text-xs
-      uppercase
-      tracking-[0.3em]
-      text-muted-foreground
-    "
-  >
-    {activeProject.category}
-  </div>
+                      <div className="font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground">
+                        {activeProject.category}
+                      </div>
 
-  <div className="mt-4 flex flex-col items-start justify-between gap-4 sm:flex-row">
+                      <div className="mt-3 flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
 
-    <h3 className="font-display text-4xl md:text-5xl">
-      {activeProject.name}
-    </h3>
+                        <h3 className="font-display text-2xl md:text-4xl">
+                          {activeProject.name}
+                        </h3>
 
-    <div className="flex gap-3 self-end sm:self-auto">
+                        <div className="flex gap-3">
+                          <a
+                            href={activeProject.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex h-10 w-10 items-center justify-center rounded-full border border-border transition-all duration-300 hover:scale-110 hover:bg-black hover:text-white"
+                          >
+                            <Github className="h-4 w-4" />
+                          </a>
 
-      {/* Github Button */}
+                          <a
+                            href={activeProject.demo}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex h-10 w-10 items-center justify-center rounded-full border border-border transition-all duration-300 hover:scale-110 hover:bg-black hover:text-white"
+                          >
+                            <ArrowUpRight className="h-4 w-4" />
+                          </a>
+                        </div>
 
-      <a
-        href={activeProject.github}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="
-          flex
-          h-12
-          w-12
-          items-center
-          justify-center
-          rounded-full
-          border
-          border-border
-          transition-all
-          duration-300
-          hover:scale-110
-          hover:bg-black
-          hover:text-white
-        "
-      >
-        <Github className="h-5 w-5" />
-      </a>
+                      </div>
 
-      {/* Live Demo Button */}
+                      <p className="mt-4 text-sm leading-7 text-muted-foreground md:text-base md:leading-8">
+                        {activeProject.description}
+                      </p>
 
-      <a
-        href={activeProject.demo}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="
-          flex
-          h-12
-          w-12
-          items-center
-          justify-center
-          rounded-full
-          border
-          border-border
-          transition-all
-          duration-300
-          hover:scale-110
-          hover:bg-black
-          hover:text-white
-        "
-      >
-        <ArrowUpRight className="h-5 w-5" />
-      </a>
+                      <div className="mt-6 font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground">
+                        {activeProject.tech}
+                      </div>
 
-    </div>
-
-  </div>
-
-  <p className="mt-5 text-sm leading-7 text-muted-foreground md:text-base md:leading-8">
-    {activeProject.description}
-  </p>
-
-  <div
-    className="
-      mt-8
-      font-mono
-      text-xs
-      uppercase
-      tracking-[0.3em]
-      text-muted-foreground
-    "
-  >
-    {activeProject.tech}
-  </div>
-
-</div>
+                    </div>
+                  </div>
               </motion.div>
 
             </AnimatePresence>
