@@ -4,7 +4,8 @@ import {
   useTransform,
   useSpring,
 } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 const MINI = [
   {
@@ -42,6 +43,7 @@ const LOOP_PROJECTS = [...MINI, ...MINI, ...MINI];
 
 export function MiniProjects() {
   const ref = useRef<HTMLDivElement>(null);
+  const [mobileIndex, setMobileIndex] = useState(0);
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -59,6 +61,17 @@ const x = useSpring(xTransform, {
   damping: 30,
   mass: 1,
 });
+const nextCard = () => {
+  setMobileIndex((prev) =>
+    prev === MINI.length - 1 ? 0 : prev + 1
+  );
+};
+
+const prevCard = () => {
+  setMobileIndex((prev) =>
+    prev === 0 ? MINI.length - 1 : prev - 1
+  );
+};
 
   return (
     <section
@@ -79,7 +92,7 @@ const x = useSpring(xTransform, {
         </div>
 
         <h2
-          className="col-span-12 font-display text-[clamp(3rem,14vw,4.5rem)] leading-none md:col-span-9 md:text-8xl"
+          className="col-span-12 font-display text-[clamp(3rem,14vw,4.5rem)] leading-none md:col-span-9 md:text-9xl"
         >
           Mini <span className="italic">experiments.</span>
         </h2>
@@ -88,9 +101,9 @@ const x = useSpring(xTransform, {
       {/* CARDS */}
 
       <motion.div
-        style={{ x }}
-        className="mt-14 flex gap-5 px-6 md:mt-20 md:gap-8 md:px-10"
-      >
+  style={{ x }}
+  className="hidden md:flex mt-14 gap-5 px-6 md:mt-20 md:gap-8 md:px-10"
+>
         {LOOP_PROJECTS.map((m, i) => (
           <motion.a
             key={`${m.name}-${i}`}
@@ -174,6 +187,73 @@ const x = useSpring(xTransform, {
           </motion.a>
         ))}
       </motion.div>
+{/* MOBILE CAROUSEL */}
+
+<div className="md:hidden px-6 mt-12">
+
+  <motion.a
+    key={mobileIndex}
+    href={MINI[mobileIndex].link}
+    target="_blank"
+    rel="noopener noreferrer"
+    initial={{ opacity: 0, x: 40 }}
+    animate={{ opacity: 1, x: 0 }}
+    className="
+      flex flex-col justify-between
+      h-[380px]
+      rounded-[24px]
+      bg-[#030A2A]
+      p-6
+      text-white
+    "
+  >
+    <div className="flex justify-between">
+      <span className="text-white/40">
+        0{mobileIndex + 1} / 0{MINI.length}
+      </span>
+
+      <span className="text-white/50">
+        {MINI[mobileIndex].tag}
+      </span>
+    </div>
+
+    <p className="leading-8 text-white/75">
+      {MINI[mobileIndex].description}
+    </p>
+
+    <div>
+      <h3 className="font-display text-4xl">
+        {MINI[mobileIndex].name}
+      </h3>
+
+      <div className="mt-5 h-px bg-white/10" />
+
+      <div className="mt-5">
+        View Project →
+      </div>
+    </div>
+  </motion.a>
+
+  <div className="flex justify-center gap-4 mt-6">
+
+    <button
+      onClick={prevCard}
+      className="h-12 w-12 rounded-full border flex items-center justify-center"
+    >
+      <ArrowLeft size={20} />
+    </button>
+
+    <button
+      onClick={nextCard}
+      className="h-12 w-12 rounded-full border flex items-center justify-center"
+    >
+      <ArrowRight size={20} />
+    </button>
+
+  </div>
+
+</div>
+
     </section>
   );
 }
