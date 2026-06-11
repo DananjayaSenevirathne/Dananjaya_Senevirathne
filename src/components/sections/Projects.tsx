@@ -8,7 +8,7 @@ import { ArrowUpRight , Github} from "lucide-react";
 import workzupImg from "@/assets/Workzup.png";
 import foodImg from "@/assets/daily-dish.png";
 import studentImg from "@/assets/Student.png";
-import loanImg from "@/assets/LoanPrediction.png";
+
 
 
 const PROJECTS = [
@@ -43,7 +43,7 @@ const PROJECTS = [
   {
     id: 3,
     n: "03",
-    name: "SmartCampus Management System",
+    name: "Management System",
     category: "Education Management Platform",
     overview: "A full-featured campus management solution for handling students, attendance, analytics, and academic reporting.",
     description: "Developed a desktop-based academic management platform with secure authentication, role-based access control, student record management, attendance monitoring, dashboard analytics, and automated PDF/Excel report generation. The system integrates with MySQL for persistent data storage and provides a modern UI built with CustomTkinter for a seamless user experience.",
@@ -65,7 +65,7 @@ function ProjectItem({
   const [isMobile, setIsMobile] = useState(false);
 
   const isInView = useInView(ref, {
-    amount: 0.7,
+    amount: 0.2,
   });
 
   useEffect(() => {
@@ -95,19 +95,20 @@ function ProjectItem({
   return (
     <motion.div
       ref={ref}
-      animate={{
-        opacity: isMobile ? 1 : isActive ? 1 : 0.2,
-        scale: isMobile ? 1 : isActive ? 1 : 0.85,
-        filter: isMobile
-          ? "blur(0px)"
-          : isActive
-            ? "blur(0px)"
-            : "blur(4px)",
-      }}
+animate={{
+  opacity: isMobile ? 1 : isActive ? 1 : 0.25,
+  scale: isMobile ? 1 : isActive ? 1 : 0.75,
+  y: isMobile ? 0 : isActive ? 0 : 30,
+  filter: isMobile
+    ? "blur(0px)"
+    : isActive
+      ? "blur(0px)"
+      : "blur(8px)",
+}}
       transition={{
         duration: 0.7,
       }}
-      className="flex items-center py-3 md:min-h-[70vh] md:py-0"
+      className="flex items-center py-10 md:min-h-[45vh] md:py-0"
     >
       <div className="grid w-full grid-cols-1 gap-6 md:grid-cols-12">
 
@@ -117,14 +118,16 @@ function ProjectItem({
           </span>
         </div>
 
-        <div className="md:col-span-9">
+        <div className="md:col-span-10">
 
           <motion.h3
             animate={{
-              y: isMobile ? 0 : isActive ? 0 : 40,
-            }}
+  y: isMobile ? 0 : isActive ? 0 : 40,
+  scale: isMobile ? 1 : isActive ? 1 : 0.8,
+  opacity: isMobile ? 1 : isActive ? 1 : 0.3,
+}}
             transition={{
-              duration: 0.6,
+              duration: 0.5,
             }}
             className="
               font-display
@@ -151,11 +154,45 @@ function ProjectItem({
             {project.category}
           </div>
 
+          <div className="mt-6 flex gap-3 lg:hidden">
+
+  <a
+    href={project.github}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="
+      flex h-12 w-12
+      items-center
+      justify-center
+      rounded-full
+      border
+    "
+  >
+    <Github className="h-4 w-4" />
+  </a>
+
+  {project.demo && (
+    <a
+      href={project.demo}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="
+        flex h-12 w-12
+        items-center
+        justify-center
+        rounded-full
+        border
+      "
+    >
+      <ArrowUpRight className="h-4 w-4" />
+    </a>
+  )}
+
+</div>
+
         </div>
 
-        <div className="flex justify-start md:col-span-1 md:justify-end">
-          <ArrowUpRight className="h-7 w-7" />
-        </div>
+       
 
       </div>
     </motion.div>
@@ -173,7 +210,7 @@ export function Projects() {
     >
       {/* HEADER */}
 
-      <div className="mb-20 md:mb-32">
+      <div className="mb-8 md:mb-12">
 
         <div className="flex items-center gap-4">
           <span className="text-eyebrow text-muted-foreground">
@@ -188,7 +225,7 @@ export function Projects() {
         <div className="flex justify-center">
           <h2
             className="
-              mt-6
+              mt-8
               text-center
               font-display
               text-[clamp(3rem,15vw,5rem)]
@@ -207,117 +244,103 @@ export function Projects() {
 
       {/* CONTENT */}
 
-      <div className="grid grid-cols-12 gap-8 md:gap-24">
+      <div className="grid lg:grid-cols-12 gap-20">
 
-        {/* LEFT SIDE */}
+  {/* LEFT SIDE */}
+  <div className="lg:col-span-7">
+    <div className="divide-y divide-border">
+      {PROJECTS.map((project) => (
+        <ProjectItem
+          key={project.id}
+          project={project}
+          activeProject={activeProject}
+          setActiveProject={setActiveProject}
+        />
+      ))}
+    </div>
+  </div>
 
-        <div className="col-span-12 order-2 md:order-1 md:col-span-7">
+  {/* RIGHT SIDE */}
+ 
+<div className="hidden lg:block lg:col-span-5">
 
-          <div className="divide-y divide-border">
+<div className="sticky top-70">
 
-            {PROJECTS.map((project) => (
-              <ProjectItem
-                key={project.id}
-                project={project}
-                activeProject={activeProject}
-                setActiveProject={setActiveProject}
-              />
-            ))}
+  <AnimatePresence mode="wait">
 
-          </div>
+    <motion.div
+      key={activeProject.id}
+      initial={{
+        opacity: 0,
+        y: 50,
+      }}
+      animate={{
+        opacity: 1,
+        y: 0,
+      }}
+      exit={{
+        opacity: 0,
+        y: -50,
+      }}
+      transition={{
+        duration: 0.5,
+      }}
+      className="rounded-[32px] border p-6 max-w-[400px] mx-auto"
+    >
 
-        </div>
+      <img
+        src={activeProject.image}
+        alt={activeProject.name}
+        className="w-full rounded-2xl mb-8"
+      />
 
-        {/* RIGHT SIDE */}
+      <div className="font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground mb-4">
+        {activeProject.category}
+      </div>
 
-        <div className="col-span-12 order-1 md:order-2 md:col-span-5">
+      <h3 className="font-display text-5xl mb-6">
+        {activeProject.name}
+      </h3>
 
-          <div className="mt-0 rounded-[32px] border border-border bg-card p-4 shadow-lg md:mt-0 md:bg-transparent md:p-0 md:shadow-none lg:sticky lg:top-24">
+      <p className="text-lg leading-9 text-muted-foreground">
+        {activeProject.description}
+      </p>
 
-            <AnimatePresence mode="wait">
+      <div className="mt-8 font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground">
+        {activeProject.tech}
+      </div>
 
-              <motion.div
-              key={activeProject.id}
-              initial={{
-              opacity: 0,
-              y: 40,
-              }}
+      <div className="mt-8 flex gap-4">
 
-              animate={{
-              opacity: 1,
-              y: 0,
-              }}
+        <a
+          href={activeProject.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex h-14 w-14 items-center justify-center rounded-full border"
+        >
+          <Github className="h-5 w-5" />
+        </a>
 
-              exit={{
-              opacity: 0,
-              y: -40,
-              }}
-              >
-                
-                  <div className="overflow-hidden rounded-[28px] border border-border bg-white p-5 sm:p-6 w-full max-w-none">
-                    <motion.img
-                      key={activeProject.image}
-                      src={activeProject.image}
-                      alt={activeProject.name}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 0.3 }}
-                      className="w-full h-[220px] object-cover sm:h-[260px] md:h-[350px] rounded-t-2xl object-center"
-                    />
-
-                    <div className="mt-4">
-
-                      <div className="font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground">
-                        {activeProject.category}
-                      </div>
-
-                      <div className="mt-3 flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
-
-                        <h3 className="font-display text-2xl md:text-4xl">
-                          {activeProject.name}
-                        </h3>
-
-                        <div className="flex gap-3">
-                          <a
-                            href={activeProject.github}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex h-10 w-10 items-center justify-center rounded-full border border-border transition-all duration-300 hover:scale-110 hover:bg-black hover:text-white"
-                          >
-                            <Github className="h-4 w-4" />
-                          </a>
-
-                          <a
-                            href={activeProject.demo}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex h-10 w-10 items-center justify-center rounded-full border border-border transition-all duration-300 hover:scale-110 hover:bg-black hover:text-white"
-                          >
-                            <ArrowUpRight className="h-4 w-4" />
-                          </a>
-                        </div>
-
-                      </div>
-
-                      <p className="mt-4 text-sm leading-7 text-muted-foreground md:text-base md:leading-8">
-                        {activeProject.description}
-                      </p>
-
-                      <div className="mt-6 font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground">
-                        {activeProject.tech}
-                      </div>
-
-                    </div>
-                  </div>
-              </motion.div>
-
-            </AnimatePresence>
-
-          </div>
-
-        </div>
+        <a
+          href={activeProject.demo}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex h-14 w-14 items-center justify-center rounded-full border"
+        >
+          <ArrowUpRight className="h-5 w-5" />
+        </a>
 
       </div>
+
+    </motion.div>
+
+  </AnimatePresence>
+
+</div>
+
+  </div>
+
+</div>
 
     </section>
   );
