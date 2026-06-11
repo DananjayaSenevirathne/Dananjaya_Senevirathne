@@ -50,21 +50,42 @@ export function Timeline() {
       className="relative px-6 py-24 md:px-12 md:py-48"
     >
       {/* Header */}
-      <div className="mb-16 grid grid-cols-12 gap-6 md:mb-24">
-        <div className="col-span-12 flex items-baseline gap-4 md:col-span-3">
-          <span className="text-eyebrow text-muted-foreground">
-            (05)
-          </span>
+      
 
-          <span className="text-eyebrow text-muted-foreground">
-            Journey
-          </span>
-        </div>
+<div className="mb-20 md:mb-32">
 
-        <h2 className="col-span-12 text-[clamp(3rem,14vw,4.5rem)] md:col-span-9 md:text-huge">
-          A <span className="italic">timeline.</span>
-        </h2>
-      </div>
+  <div className="grid grid-cols-12 items-start">
+
+    {/* Left Label */}
+    <div className="col-span-3 flex items-center gap-4">
+      <span className="text-eyebrow text-muted-foreground">
+        (05)
+      </span>
+
+      <span className="text-eyebrow text-muted-foreground">
+        Journey
+      </span>
+    </div>
+
+    {/* Center Title */}
+    <div className="col-span-12 flex justify-center px-4">
+  <h2
+    className="
+      text-center
+      font-display
+      text-[3rem]
+      sm:text-[4rem]
+      md:text-[8rem]
+      leading-none
+    "
+  >
+    A <span className="italic">timeline.</span>
+  </h2>
+</div>
+
+  </div>
+
+</div>
 
       {/* Timeline */}
       <div className="relative mx-auto max-w-[1400px]">
